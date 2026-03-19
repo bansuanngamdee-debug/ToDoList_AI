@@ -1,6 +1,9 @@
 # This script prints 'Hello World' to the console
 
 def main():
+
+    global tasks
+    tasks = []
     while True:
         print("\n===== ToDo List Menu =====")
         print("1. เพิ่มงานใหม่")
@@ -25,7 +28,21 @@ def main():
             print("กรุณาเลือกเมนู 1-5 เท่านั้น")
 
 def add_task():
-    pass
+    global tasks
+    print("\n--- เพิ่มงานใหม่ ---")
+    title = input("ชื่อเรื่อง: ")
+    description = input("รายละเอียด: ")
+    due_date = input("วันครบกำหนด (YYYY-MM-DD): ")
+    task_id = len(tasks) + 1
+    task = {
+        "id": task_id,
+        "title": title,
+        "description": description,
+        "due_date": due_date,
+        "completed": False
+    }
+    tasks.append(task)
+    print("เพิ่มงานสำเร็จ!")
 
 def view_tasks():
     pass
