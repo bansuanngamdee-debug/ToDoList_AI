@@ -18,7 +18,7 @@ def main():
         elif choice == "2":
             view_tasks()
         elif choice == "3":
-            edit_task()
+            update_task()
         elif choice == "4":
             delete_task()
         elif choice == "5":
