@@ -33,7 +33,7 @@ def add_task():
     title = input("ชื่อเรื่อง: ")
     description = input("รายละเอียด: ")
     due_date = input("วันครบกำหนด (YYYY-MM-DD): ")
-    task_id = len(tasks) + 1
+    task_id = len(tasks) + 12
     task = {
         "id": task_id,
         "title": title,
@@ -45,7 +45,44 @@ def add_task():
     print("เพิ่มงานสำเร็จ!")
 
 def view_tasks():
-    pass
+    global tasks
+    print("\n--- รายการงานทั้งหมด ---")
+    if not tasks:
+        print("ยังไม่มีงานในรายการ")
+        return
+    for idx, task in enumerate(tasks, start=1):
+        status = "เสร็จแล้ว" if task["completed"] else "ยังไม่เสร็จ"
+        print(f"{idx}. {task['title']} | วันครบกำหนด: {task['due_date']} | สถานะ: {status}")
+
+def update_task():
+    global tasks
+    print("\n--- แก้ไขงาน ---")
+    if not tasks:
+        print("ยังไม่มีงานในรายการ")
+        return
+    view_tasks()
+    try:
+        index = int(input("เลือกงานที่จะแก้ไข (ลำดับ): "))
+    except ValueError:
+        print("กรุณาป้อนตัวเลขลำดับให้ถูกต้อง")
+        return
+    if index < 1 or index > len(tasks):
+        print("ลำดับไม่ถูกต้อง")
+        return
+    task = tasks[index - 1]
+    print(f"งานเดิม: {task['title']}, {task['description']}, วันครบกำหนด: {task['due_date']}, สถานะ: {'เสร็จแล้ว' if task['completed'] else 'ยังไม่เสร็จ'}")
+    new_title = input(f"ชื่อเรื่องใหม่ (Enter เพื่อข้าม): ")
+    new_description = input(f"รายละเอียดใหม่ (Enter เพื่อข้าม): ")
+    new_completed = input(f"สถานะเสร็จแล้ว? (y/n, Enter เพื่อข้าม): ")
+    if new_title:
+        task['title'] = new_title
+    if new_description:
+        task['description'] = new_description
+    if new_completed.lower() == 'y':
+        task['completed'] = True
+    elif new_completed.lower() == 'n':
+        task['completed'] = False
+    print("แก้ไขงานสำเร็จ!")
 
 def edit_task():
     pass
