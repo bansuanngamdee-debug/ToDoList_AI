@@ -1,9 +1,11 @@
+import json
+import os
 # This script prints 'Hello World' to the console
 
 def main():
 
     global tasks
-    tasks = []
+    tasks = load_tasks()
     while True:
         print("\n===== ToDo List Menu =====")
         print("1. เพิ่มงานใหม่")
@@ -22,10 +24,21 @@ def main():
         elif choice == "4":
             delete_task()
         elif choice == "5":
+            save_tasks()
             print("ออกจากโปรแกรม")
             break
         else:
             print("กรุณาเลือกเมนู 1-5 เท่านั้น")
+def save_tasks():
+    global tasks
+    with open("tasks.json", "w", encoding="utf-8") as f:
+        json.dump(tasks, f, ensure_ascii=False, indent=2)
+
+def load_tasks():
+    if not os.path.exists("tasks.json"):
+        return []
+    with open("tasks.json", "r", encoding="utf-8") as f:
+        return json.load(f)
 
 def add_task():
     global tasks
