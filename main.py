@@ -88,7 +88,27 @@ def edit_task():
     pass
 
 def delete_task():
-    pass
+    global tasks
+    print("\n--- ลบงาน ---")
+    if not tasks:
+        print("ยังไม่มีงานในรายการ")
+        return
+    view_tasks()
+    try:
+        index = int(input("เลือกงานที่ต้องการลบ (ลำดับ): "))
+    except ValueError:
+        print("กรุณาป้อนตัวเลขลำดับให้ถูกต้อง")
+        return
+    if index < 1 or index > len(tasks):
+        print("ลำดับไม่ถูกต้อง")
+        return
+    task = tasks[index - 1]
+    confirm = input(f"ต้องการลบงานนี้จริงหรือไม่ (y/n): {task['title']} ")
+    if confirm.lower() == 'y':
+        tasks.pop(index - 1)
+        print("ลบงานสำเร็จ!")
+    else:
+        print("ยกเลิกการลบงาน")
 
 if __name__ == "__main__":
     main()
